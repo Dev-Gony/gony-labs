@@ -1,0 +1,20 @@
+# Python 가상환경
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Node.js (frontend)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+
+# 환경 변수 및 설정
+.env
+.env.local
+.env.development.local
+
+# OS 관련
+.DS_Store
+Thumbs.db
