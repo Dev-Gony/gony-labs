@@ -41,4 +41,4 @@ python -m uvicorn src.main:app
 - [x] JOIN으로 질문과 답변을 함께 조회한다.
 - [x] transaction rollback을 테스트한다.
 - [x] Alembic migration 파일을 제공한다.
-- [x] GitHub Container Integration에서 PostgreSQL에 Alembic migration을 실제 적용했다.
+- [x] GitHub Container Integration에서 PostgreSQL에 Alembic migration을 실제 적용하고 FastAPI 질문 조회·답변 저장을 확인했다.
