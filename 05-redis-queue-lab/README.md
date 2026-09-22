@@ -22,6 +22,7 @@ docker compose up --build
 ```
 
 `POST /jobs`에 `{ "seconds": 10 }`을 보내면 Job ID를 받고, `GET /jobs/{id}`로 상태를 조회합니다.
+`GET /health`는 Redis 연결이 가능할 때만 200을 반환합니다.
 
 ## Done
 

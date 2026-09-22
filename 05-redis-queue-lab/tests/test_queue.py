@@ -3,6 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT))
+from queue_lab import main
 from queue_lab.main import job_payload
 
 
@@ -23,3 +24,15 @@ def test_compose_has_separate_worker():
     assert "worker:" in compose
     assert "rq worker" in compose
     assert "redis:7-alpine" in compose
+
+
+def test_health_checks_redis_connection(monkeypatch):
+    class Connection:
+        def ping(self):
+            return True
+
+    class Queue:
+        connection = Connection()
+
+    monkeypatch.setattr(main, "get_queue", lambda: Queue())
+    assert main.health() == {"status": "ok"}

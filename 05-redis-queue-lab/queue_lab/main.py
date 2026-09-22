@@ -4,6 +4,7 @@ from typing import Any
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, Field
 from redis import Redis
+from redis.exceptions import RedisError
 from rq import Queue
 from rq.job import Job
 
@@ -23,6 +24,15 @@ def get_queue() -> Queue:
 
 def job_payload(job: Job) -> dict[str, Any]:
     return {"id": job.id, "status": job.get_status(), "result": job.result}
+
+
+@app.get("/health")
+def health() -> dict[str, str]:
+    try:
+        get_queue().connection.ping()
+    except RedisError as exc:
+        raise HTTPException(status_code=503, detail="Redis unavailable") from exc
+    return {"status": "ok"}
 
 
 @app.post("/jobs", status_code=status.HTTP_202_ACCEPTED)
