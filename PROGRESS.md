@@ -10,7 +10,7 @@ Started: 2026-09-22
 
 - [ ] 01 Daily Interview Gym - 코드·자동 Eval 통과. Slack Secret 설정과 workflow 실제 수신 필요.
 - [x] 02 FastAPI Lab - API 계약 테스트 통과.
-- [ ] 03 PostgreSQL Lab - migration SQL과 SQLite 테스트 통과. GitHub Container Integration 결과 대기.
+- [x] 03 PostgreSQL Lab - GitHub Container Integration에서 Alembic migration을 PostgreSQL에 적용했다.
 - [x] 04 Docker Lab - GitHub Container Integration에서 API와 PostgreSQL health 확인.
 - [x] 05 Redis Queue Lab - GitHub Container Integration에서 Redis Worker Job 완료 확인.
 - [x] 06 API Reliability Lab - failure policy 및 idempotency 테스트 통과.

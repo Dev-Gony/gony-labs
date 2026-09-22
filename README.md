@@ -10,7 +10,7 @@
 | --- | --- | --- | --- |
 | [01](01-daily-interview-gym/README.md) | Slack·LLM 면접 질문 | Pass | Slack Secret 필요 |
 | [02](02-fastapi-lab/README.md) | FastAPI·Pydantic | Pass | Swagger 수동 확인 권장 |
-| [03](03-postgresql-lab/README.md) | PostgreSQL·Alembic | Pass | PostgreSQL 컨테이너 필요 |
+| [03](03-postgresql-lab/README.md) | PostgreSQL·Alembic | Pass | GitHub Container Integration Pass |
 | [04](04-docker-lab/README.md) | Docker Compose | Pass | GitHub Container Integration Pass |
 | [05](05-redis-queue-lab/README.md) | Redis Queue·Worker | Pass | GitHub Container Integration Pass |
 | [06](06-api-reliability-lab/README.md) | Retry·Timeout·Idempotency | Pass | 외부 API 연결은 범위 외 |
