@@ -1,0 +1,17 @@
+[
+  {
+    "id": "http-idempotency",
+    "topic": "HTTP",
+    "question": "멱등한 HTTP 메서드란 무엇이며, 왜 중요한가?"
+  },
+  {
+    "id": "database-index",
+    "topic": "Database",
+    "question": "데이터베이스 인덱스는 언제 효과적이고 어떤 비용이 있는가?"
+  },
+  {
+    "id": "transaction",
+    "topic": "Database",
+    "question": "트랜잭션이 필요한 이유와 롤백이 필요한 사례를 설명해 보세요."
+  }
+]

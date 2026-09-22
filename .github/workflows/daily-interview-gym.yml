@@ -1,0 +1,36 @@
+name: Daily Interview Gym
+
+on:
+  schedule:
+    - cron: '0 0 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  send-question:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 01-daily-interview-gym
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run minimal eval
+        run: |
+          python -m pip install -r ../requirements-dev.txt
+          python -m pytest tests -q
+      - name: Send the question
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python run.py
+      - name: Save question history
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/history.json
+          git diff --cached --quiet || git commit -m 'chore: record daily interview question'
+          git push
