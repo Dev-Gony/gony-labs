@@ -16,3 +16,9 @@ def test_dockerfile_exposes_api_port_and_command():
     dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
     assert "EXPOSE 8000" in dockerfile
     assert '"uvicorn"' in dockerfile
+
+
+def test_compose_verifier_checks_api_and_database_health():
+    script = (ROOT / "scripts/verify-compose.ps1").read_text(encoding="utf-8")
+    assert "/health" in script
+    assert "/db-health" in script

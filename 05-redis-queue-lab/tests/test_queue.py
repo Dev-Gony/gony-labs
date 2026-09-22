@@ -36,3 +36,10 @@ def test_health_checks_redis_connection(monkeypatch):
 
     monkeypatch.setattr(main, "get_queue", lambda: Queue())
     assert main.health() == {"status": "ok"}
+
+
+def test_compose_verifier_waits_for_job_completion():
+    script = (ROOT / "scripts/verify-compose.ps1").read_text(encoding="utf-8")
+    assert "/health" in script
+    assert '"seconds":10' in script
+    assert "finished" in script

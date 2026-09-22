@@ -28,6 +28,8 @@ Copy-Item .env.example .env
 docker compose up --build
 ```
 
+Docker 설치 후 API와 DB health까지 자동 확인하려면 `./scripts/verify-compose.ps1`을 실행합니다.
+
 API: `http://localhost:8000/health`  
 DB 연결 확인: `http://localhost:8000/db-health`
 

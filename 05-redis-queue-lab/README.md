@@ -21,6 +21,8 @@ Set-Location 05-redis-queue-lab
 docker compose up --build
 ```
 
+Docker 설치 후 Redis health와 10초 Job 완료까지 자동 확인하려면 `./scripts/verify-compose.ps1`을 실행합니다.
+
 `POST /jobs`에 `{ "seconds": 10 }`을 보내면 Job ID를 받고, `GET /jobs/{id}`로 상태를 조회합니다.
 `GET /health`는 Redis 연결이 가능할 때만 200을 반환합니다.
 

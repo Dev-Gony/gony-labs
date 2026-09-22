@@ -26,7 +26,7 @@ python -m pip install -r requirements-dev.txt
 python -m pytest 01-daily-interview-gym/tests 02-fastapi-lab/tests 03-postgresql-lab/tests 04-docker-lab/tests 05-redis-queue-lab/tests 06-api-reliability-lab/tests 07-mini-rag/tests 08-mcp-tool-lab/tests -q
 ```
 
-예상 결과: `31 passed`.
+예상 결과: `33 passed`.
 
 `main`에 push하거나 pull request를 열면 [Test Toy Labs](.github/workflows/ci.yml) workflow가 같은 전체 Eval을 실행합니다.
 
