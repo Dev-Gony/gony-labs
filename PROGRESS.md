@@ -3,25 +3,19 @@
 ## Current
 
 08 MCP Tool Lab  
-Status: COMPLETE  
+Status: CODE COMPLETE / CLIENT REGISTRATION PENDING  
 Started: 2026-09-22
 
-## Queue
+## Lab status
 
-- [x] 01 Daily Interview Gym (local eval complete; Slack delivery pending secret configuration)
-- [x] 02 FastAPI Lab
-- [x] 03 PostgreSQL Lab (PostgreSQL SQL migration verified; container verification pending Docker)
-- [x] 04 Docker Lab (compose configuration verified; Docker CLI unavailable)
-- [x] 05 Redis Queue Lab (Redis/Worker Compose configured; Docker CLI unavailable)
-- [x] 06 API Reliability Lab
-- [x] 07 Mini RAG (Hit@3 eval passes; pgvector Compose configured)
-- [x] 08 MCP Tool Lab
-- [ ] 03 PostgreSQL Lab
-- [ ] 04 Docker Lab
-- [ ] 05 Redis Queue Lab
-- [ ] 06 API Reliability Lab
-- [ ] 07 Mini RAG
-- [ ] 08 MCP Tool Lab
+- [ ] 01 Daily Interview Gym - 코드·자동 Eval 통과. Slack Secret 설정과 workflow 실제 수신 필요.
+- [x] 02 FastAPI Lab - API 계약 테스트 통과.
+- [ ] 03 PostgreSQL Lab - migration SQL과 SQLite 테스트 통과. PostgreSQL 기동 검증 필요.
+- [ ] 04 Docker Lab - Compose 정의 테스트 통과. Docker 기동 검증 필요.
+- [ ] 05 Redis Queue Lab - Queue/Worker 구성 테스트 통과. Redis Worker 기동 검증 필요.
+- [x] 06 API Reliability Lab - failure policy 및 idempotency 테스트 통과.
+- [ ] 07 Mini RAG - Hit@3 평가 통과. pgvector 기동 검증 필요.
+- [ ] 08 MCP Tool Lab - tool discovery/call 테스트 통과. 실제 MCP 클라이언트 등록 필요.
 
 ## Job Market Feedback
 
@@ -31,3 +25,7 @@ Started: 2026-09-22
 | Docker | 0 |
 | Redis | 0 |
 | RAG | 0 |
+
+## Completion rule
+
+Lab은 자동 검증, 해당 실환경 확인, README의 `What I Learned`, 30초 면접 답변을 모두 채운 뒤에만 완료로 바꾼다.

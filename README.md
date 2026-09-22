@@ -1,15 +1,41 @@
 # Gony Toy Labs
 
-취업 공고에서 반복되는 백엔드·인프라·AI 기술을 작게 구현하고 설명 가능한 경험으로 남기는 실습 저장소입니다.
+취업 공고에서 반복되는 백엔드·인프라·AI 기술을 작은 단위로 구현하고, 동작 원리와 선택 이유를 면접에서 설명할 수 있게 만드는 실습 저장소입니다.
 
-현재 진행 중인 Lab은 [01 Daily Interview Gym](01-daily-interview-gym/README.md)입니다.
+## 현재 상태
 
-## Quick start
+코드와 자동 테스트는 01-08까지 작성되어 있습니다. 단, 외부 서비스 또는 Docker가 필요한 항목은 이 환경에서 실제 기동하지 못했으므로 **구성 완료**와 **실환경 검증 완료**를 구분합니다.
+
+| Lab | 주제 | 자동 검증 | 실환경 검증 |
+| --- | --- | --- | --- |
+| [01](01-daily-interview-gym/README.md) | Slack·LLM 면접 질문 | Pass | Slack Secret 필요 |
+| [02](02-fastapi-lab/README.md) | FastAPI·Pydantic | Pass | Swagger 수동 확인 권장 |
+| [03](03-postgresql-lab/README.md) | PostgreSQL·Alembic | Pass | PostgreSQL 컨테이너 필요 |
+| [04](04-docker-lab/README.md) | Docker Compose | 정적 구성 Pass | Docker CLI 필요 |
+| [05](05-redis-queue-lab/README.md) | Redis Queue·Worker | 정적 구성 Pass | Docker CLI 필요 |
+| [06](06-api-reliability-lab/README.md) | Retry·Timeout·Idempotency | Pass | 외부 API 연결은 범위 외 |
+| [07](07-mini-rag/README.md) | Retrieval·pgvector | Hit@3 Pass | pgvector 컨테이너 필요 |
+| [08](08-mcp-tool-lab/README.md) | MCP Tool Server | Pass | MCP 클라이언트 등록 권장 |
+
+상세 체크리스트는 [PROGRESS.md](PROGRESS.md)를 기준으로 관리합니다.
+
+## 시작하기
 
 ```powershell
 python -m pip install -r requirements-dev.txt
-python -m pytest 01-daily-interview-gym/tests -q
-python 01-daily-interview-gym/run.py --dry-run
+python -m pytest 01-daily-interview-gym/tests 02-fastapi-lab/tests 03-postgresql-lab/tests 04-docker-lab/tests 05-redis-queue-lab/tests 06-api-reliability-lab/tests 07-mini-rag/tests 08-mcp-tool-lab/tests -q
 ```
 
-`SLACK_WEBHOOK_URL`을 설정하면 실제 Slack 전송을 사용할 수 있습니다. 설정하지 않으면 `--dry-run`으로 payload를 안전하게 확인할 수 있습니다.
+예상 결과: `27 passed`.
+
+## 다음 순서
+
+1. Docker Desktop을 설치한 뒤 03-05와 07의 README에 있는 Compose 검증을 실행한다.
+2. GitHub Secrets에 `SLACK_WEBHOOK_URL`, `OPENAI_API_KEY`를 넣고 01번 workflow를 수동 실행한다.
+3. 각 Lab의 `What I Learned`와 `Interview Answer`를 직접 채운다.
+
+## 원칙
+
+- Lab 하나의 범위를 README MVP로 제한한다.
+- UI, 로그인, 결제, 복잡한 운영 기능을 추가하지 않는다.
+- 테스트 통과는 코드 검증이며, Secret·컨테이너·외부 서비스 검증을 대체하지 않는다.
