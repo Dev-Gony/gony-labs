@@ -1,0 +1,78 @@
+name: Container Integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  compose-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Verify Docker Lab API and PostgreSQL
+        shell: bash
+        run: |
+          cd 04-docker-lab
+          cp .env.example .env
+          docker compose up --build -d
+          for attempt in {1..45}; do
+            if curl --fail --silent http://localhost:8000/health && curl --fail --silent http://localhost:8000/db-health; then
+              exit 0
+            fi
+            sleep 2
+          done
+          docker compose ps
+          docker compose logs
+          exit 1
+      - name: Stop Docker Lab services
+        if: always()
+        run: docker compose -f 04-docker-lab/compose.yaml down -v
+      - name: Verify Redis Queue Worker end to end
+        shell: bash
+        run: |
+          cd 05-redis-queue-lab
+          docker compose up --build -d
+          for attempt in {1..45}; do
+            if curl --fail --silent http://localhost:8000/health; then break; fi
+            sleep 2
+          done
+          curl --fail --silent http://localhost:8000/health
+          response=$(curl --fail --silent --request POST http://localhost:8000/jobs --header 'Content-Type: application/json' --data '{"seconds":10}')
+          job_id=$(python -c 'import json,sys; print(json.load(sys.stdin)["id"])' <<< "$response")
+          for attempt in {1..45}; do
+            status=$(curl --fail --silent "http://localhost:8000/jobs/$job_id")
+            if python -c 'import json,sys; raise SystemExit(0 if json.load(sys.stdin)["status"] == "finished" else 1)' <<< "$status"; then exit 0; fi
+            sleep 2
+          done
+          docker compose ps
+          docker compose logs
+          exit 1
+      - name: Stop Redis Queue services
+        if: always()
+        run: docker compose -f 05-redis-queue-lab/compose.yaml down -v
+      - name: Verify pgvector initialization and RAG seeding
+        shell: bash
+        run: |
+          cd 07-mini-rag
+          docker compose up -d db
+          for attempt in {1..45}; do
+            if docker compose exec -T db pg_isready -U rag -d rag; then break; fi
+            sleep 2
+          done
+          docker compose exec -T db pg_isready -U rag -d rag
+          python seed_pgvector.py
+          test "$(docker compose exec -T db psql -U rag -d rag -Atc 'SELECT count(*) FROM document_chunks')" = "10"
+          docker compose exec -T db psql -U rag -d rag -Atc "SELECT indexname FROM pg_indexes WHERE indexname = 'document_chunks_embedding_idx'" | grep '^document_chunks_embedding_idx$'
+      - name: Stop pgvector service
+        if: always()
+        run: docker compose -f 07-mini-rag/compose.yaml down -v

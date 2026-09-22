@@ -28,7 +28,7 @@ python -m pip install -r requirements-dev.txt
 
 예상 결과: `34 passed`.
 
-`main`에 push하거나 pull request를 열면 [Test Toy Labs](.github/workflows/ci.yml) workflow가 같은 전체 Eval을 실행합니다.
+`main`에 push하거나 pull request를 열면 [Test Toy Labs](.github/workflows/ci.yml)가 전체 Eval을, [Container Integration](.github/workflows/integration.yml)가 Docker·Redis·pgvector 실환경 smoke test를 실행합니다.
 
 ## 다음 순서
 
