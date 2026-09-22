@@ -41,6 +41,8 @@ python run.py
 
 최근 전송 기록은 로컬 `data/history.json`에 남습니다. CI에서 중복을 피하려면 워크플로가 이 파일을 커밋합니다.
 
+GitHub Actions에서는 repository secret `SLACK_WEBHOOK_URL`과 `OPENAI_API_KEY`를 설정합니다. 모델을 바꾸려면 repository variable `OPENAI_MODEL`을 설정하며, 없으면 `gpt-5.6-luna`를 사용합니다.
+
 ## Done
 
 - [ ] GitHub Actions 예약 실행에서 실제 Slack 메시지를 확인한다.

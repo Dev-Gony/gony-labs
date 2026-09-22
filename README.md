@@ -33,7 +33,7 @@ python -m pytest 01-daily-interview-gym/tests 02-fastapi-lab/tests 03-postgresql
 ## 다음 순서
 
 1. Docker Desktop을 설치한 뒤 03-05와 07의 README에 있는 Compose 검증을 실행한다.
-2. GitHub Secrets에 `SLACK_WEBHOOK_URL`, `OPENAI_API_KEY`를 넣고 01번 workflow를 수동 실행한다.
+2. GitHub Secrets에 `SLACK_WEBHOOK_URL`, `OPENAI_API_KEY`를 넣고, 필요하면 GitHub Variable `OPENAI_MODEL`을 설정한 뒤 01번 workflow를 수동 실행한다.
 3. 각 Lab의 `What I Learned`와 `Interview Answer`를 직접 채운다.
 
 ## 원칙
