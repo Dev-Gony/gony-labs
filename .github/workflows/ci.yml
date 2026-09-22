@@ -1,0 +1,33 @@
+name: Test Toy Labs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Run every Lab eval
+        run: >-
+          python -m pytest
+          01-daily-interview-gym/tests
+          02-fastapi-lab/tests
+          03-postgresql-lab/tests
+          04-docker-lab/tests
+          05-redis-queue-lab/tests
+          06-api-reliability-lab/tests
+          07-mini-rag/tests
+          08-mcp-tool-lab/tests
+          -q
