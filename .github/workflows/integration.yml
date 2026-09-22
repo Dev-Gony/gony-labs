@@ -19,6 +19,20 @@ jobs:
           python-version: '3.12'
       - name: Install Python dependencies
         run: python -m pip install -r requirements-dev.txt
+      - name: Verify PostgreSQL Lab migration against PostgreSQL
+        shell: bash
+        run: |
+          docker run --detach --name postgresql-lab-test --env POSTGRES_DB=toy_labs --env POSTGRES_USER=toy_user --env POSTGRES_PASSWORD=toy_password --publish 5433:5432 postgres:16-alpine
+          for attempt in {1..45}; do
+            if docker exec postgresql-lab-test pg_isready -U toy_user -d toy_labs; then break; fi
+            sleep 2
+          done
+          cd 03-postgresql-lab
+          DATABASE_URL='postgresql+psycopg://toy_user:toy_password@localhost:5433/toy_labs' python -m alembic -c alembic.ini upgrade head
+          test "$(docker exec postgresql-lab-test psql -U toy_user -d toy_labs -Atc "SELECT count(*) FROM information_schema.tables WHERE table_name IN ('questions', 'answers')")" = "2"
+      - name: Stop PostgreSQL Lab service
+        if: always()
+        run: docker rm --force postgresql-lab-test || true
       - name: Verify Docker Lab API and PostgreSQL
         shell: bash
         run: |
