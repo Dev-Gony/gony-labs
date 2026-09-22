@@ -1,18 +1,24 @@
+from contextlib import asynccontextmanager
+
 from fastapi import Depends, FastAPI, HTTPException, status
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from .database import Base, SessionLocal, engine
+from .database import SessionLocal
 from .models import Answer, Question
 from .services import create_answer, questions_with_answers, seed_questions
 
 
-Base.metadata.create_all(engine)
-with SessionLocal() as startup_session:
-    seed_questions(startup_session)
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    # The schema is created only by Alembic, not by application startup.
+    with SessionLocal() as startup_session:
+        seed_questions(startup_session)
+    yield
 
-app = FastAPI(title="PostgreSQL Lab", version="0.1.0")
+
+app = FastAPI(title="PostgreSQL Lab", version="0.1.0", lifespan=lifespan)
 
 
 class AnswerCreate(BaseModel):

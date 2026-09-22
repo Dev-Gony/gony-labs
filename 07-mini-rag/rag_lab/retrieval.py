@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 
 DIMENSIONS = 256
+KOREAN_PARTICLES = "은는이가을를의와과도만로에"
 
 
 @dataclass(frozen=True)
@@ -14,8 +15,13 @@ class Document:
 
 def embed(text: str) -> list[float]:
     vector = [0.0] * DIMENSIONS
-    normalized = text.lower().replace("?", " ").replace(",", " ")
+    normalized = text.lower().replace("?", " ").replace(",", " ").replace(".", " ")
+    tokens = []
     for token in normalized.split():
+        tokens.append(token)
+        if len(token) > 1 and token[-1] in KOREAN_PARTICLES:
+            tokens.append(token[:-1])
+    for token in tokens:
         index = int(hashlib.sha256(token.encode()).hexdigest(), 16) % DIMENSIONS
         vector[index] += 1.0
     magnitude = math.sqrt(sum(value * value for value in vector))

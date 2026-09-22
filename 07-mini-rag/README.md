@@ -21,13 +21,18 @@ Chunking, Embedding, Cosine Similarity, Retrieval Hit@3, PostgreSQL, pgvector
 ## Run
 
 ```powershell
-python -m pytest tests -q
 docker compose up -d db
+python seed_pgvector.py
+python run.py '트랜잭션 롤백은 왜 필요한가?'
+python -m pytest tests -q
 ```
+
+`seed_pgvector.py`는 10개 샘플 문서와 256차원 임베딩을 `document_chunks`에 upsert합니다. `run.py`는 로컬 동일 임베딩으로 Top-3와 근거 기반 요약을 출력합니다.
 
 ## Done
 
 - [x] Top-3 retrieval과 문맥 기반 답변이 동작한다.
+- [x] pgvector에 적재할 문서 청크·256차원 vector row를 생성한다.
 - [x] 10개 평가셋에서 Hit@3 80% 이상을 자동 검증한다.
 - [ ] pgvector 컨테이너에서 vector index를 직접 확인한다. (Docker CLI 필요)
 

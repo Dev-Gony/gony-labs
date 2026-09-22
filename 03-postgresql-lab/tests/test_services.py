@@ -41,3 +41,8 @@ def test_transaction_rolls_back_on_foreign_key_error():
     except RuntimeError:
         pass
     assert session.scalar(select(Question)) is None
+
+
+def test_application_does_not_bypass_alembic_with_create_all():
+    main_source = (lab_root / "src/main.py").read_text(encoding="utf-8")
+    assert ".create_all(" not in main_source

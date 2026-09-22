@@ -5,6 +5,7 @@ ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT))
 from rag_lab.data import DOCUMENTS, EVAL_SET
 from rag_lab.retrieval import answer_from_context, retrieve
+from rag_lab.store import rows_for_documents, vector_literal
 
 
 def test_eval_retrieval_hit_at_3_is_at_least_80_percent():
@@ -20,7 +21,20 @@ def test_answer_includes_retrieved_document_context():
     assert "근거 문서" in answer
 
 
+def test_korean_particle_normalization_keeps_transaction_document_first():
+    results = retrieve("트랜잭션 롤백은 왜 필요한가?", DOCUMENTS)
+    assert results[0].id == "database-transaction"
+
+
 def test_pgvector_schema_has_vector_and_hnsw_index():
     schema = (ROOT / "sql/init.sql").read_text(encoding="utf-8")
     assert "vector(256)" in schema
     assert "USING hnsw" in schema
+
+
+def test_document_rows_match_pgvector_dimension():
+    rows = rows_for_documents(DOCUMENTS)
+    assert len(rows) == 10
+    assert rows[0][0] == "http-idempotency"
+    assert len(rows[0][2].strip("[]").split(",")) == 256
+    assert vector_literal([1.0, 0.0]) == "[1.00000000,0.00000000]"
