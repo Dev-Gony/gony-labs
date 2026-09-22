@@ -35,7 +35,7 @@ python -m pytest tests -q
 - [x] Top-3 retrieval과 문맥 기반 답변이 동작한다.
 - [x] pgvector에 적재할 문서 청크·256차원 vector row를 생성한다.
 - [x] 10개 평가셋에서 Hit@3 80% 이상을 자동 검증한다.
-- [ ] pgvector 컨테이너에서 vector index를 직접 확인한다. (Docker CLI 필요)
+- [x] GitHub Container Integration에서 pgvector 적재와 HNSW vector index를 확인했다.
 
 ## Interview Questions
 

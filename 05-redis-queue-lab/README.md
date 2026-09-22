@@ -31,4 +31,4 @@ Docker 설치 후 Redis health와 10초 Job 완료까지 자동 확인하려면 
 - [x] 요청과 작업 처리가 Queue로 분리된다.
 - [x] Worker가 별도 프로세스에 있다.
 - [x] Job ID, 상태, 결과 조회 API가 있다.
-- [ ] Redis 컨테이너에서 실제 10초 Job을 확인한다. (Docker CLI 필요)
+- [x] GitHub Container Integration에서 Redis Worker의 실제 10초 Job 완료를 확인했다.

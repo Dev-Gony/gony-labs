@@ -36,4 +36,4 @@ DB 연결 확인: `http://localhost:8000/db-health`
 ## Done
 
 - [x] Dockerfile, Compose, ENV, volume, health check을 제공한다.
-- [ ] `docker compose up`으로 API와 DB를 실제 실행한다. (현재 작업환경에 Docker CLI 없음)
+- [x] GitHub Container Integration에서 `docker compose up` 후 API와 DB health를 확인했다.

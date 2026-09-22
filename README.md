@@ -11,10 +11,10 @@
 | [01](01-daily-interview-gym/README.md) | Slack·LLM 면접 질문 | Pass | Slack Secret 필요 |
 | [02](02-fastapi-lab/README.md) | FastAPI·Pydantic | Pass | Swagger 수동 확인 권장 |
 | [03](03-postgresql-lab/README.md) | PostgreSQL·Alembic | Pass | PostgreSQL 컨테이너 필요 |
-| [04](04-docker-lab/README.md) | Docker Compose | 정적 구성 Pass | Docker CLI 필요 |
-| [05](05-redis-queue-lab/README.md) | Redis Queue·Worker | 정적 구성 Pass | Docker CLI 필요 |
+| [04](04-docker-lab/README.md) | Docker Compose | Pass | GitHub Container Integration Pass |
+| [05](05-redis-queue-lab/README.md) | Redis Queue·Worker | Pass | GitHub Container Integration Pass |
 | [06](06-api-reliability-lab/README.md) | Retry·Timeout·Idempotency | Pass | 외부 API 연결은 범위 외 |
-| [07](07-mini-rag/README.md) | Retrieval·pgvector | Hit@3 Pass | pgvector 컨테이너 필요 |
+| [07](07-mini-rag/README.md) | Retrieval·pgvector | Hit@3 Pass | GitHub Container Integration Pass |
 | [08](08-mcp-tool-lab/README.md) | MCP Tool Server | Pass | MCP 클라이언트 등록 권장 |
 
 상세 체크리스트는 [PROGRESS.md](PROGRESS.md)를 기준으로 관리합니다.
