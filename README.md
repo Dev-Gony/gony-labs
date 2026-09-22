@@ -15,7 +15,7 @@
 | [05](05-redis-queue-lab/README.md) | Redis Queue·Worker | Pass | GitHub Container Integration Pass |
 | [06](06-api-reliability-lab/README.md) | Retry·Timeout·Idempotency | Pass | 외부 API 연결은 범위 외 |
 | [07](07-mini-rag/README.md) | Retrieval·pgvector | Hit@3 Pass | GitHub Container Integration Pass |
-| [08](08-mcp-tool-lab/README.md) | MCP Tool Server | Pass | MCP 클라이언트 등록 권장 |
+| [08](08-mcp-tool-lab/README.md) | MCP Tool Server | Pass | stdio MCP Client E2E Pass |
 
 상세 체크리스트는 [PROGRESS.md](PROGRESS.md)를 기준으로 관리합니다.
 
@@ -26,7 +26,7 @@ python -m pip install -r requirements-dev.txt
 ./scripts/check.ps1
 ```
 
-예상 결과: `34 passed`.
+예상 결과: `35 passed`.
 
 `main`에 push하거나 pull request를 열면 [Test Toy Labs](.github/workflows/ci.yml)가 전체 Eval을, [Container Integration](.github/workflows/integration.yml)가 Docker·Redis·pgvector 실환경 smoke test를 실행합니다.
 

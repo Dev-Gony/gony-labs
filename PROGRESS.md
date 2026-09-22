@@ -15,7 +15,7 @@ Started: 2026-09-22
 - [x] 05 Redis Queue Lab - GitHub Container Integration에서 Redis Worker Job 완료 확인.
 - [x] 06 API Reliability Lab - failure policy 및 idempotency 테스트 통과.
 - [x] 07 Mini RAG - Hit@3 평가 및 pgvector 적재·HNSW index Container Integration 통과.
-- [ ] 08 MCP Tool Lab - tool discovery/call 테스트 통과. 실제 MCP 클라이언트 등록 필요.
+- [x] 08 MCP Tool Lab - 실제 stdio MCP Client의 tool discovery/call 테스트 통과.
 
 ## Job Market Feedback
 

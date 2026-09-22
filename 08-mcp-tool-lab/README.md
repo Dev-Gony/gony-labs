@@ -29,6 +29,7 @@ stdio MCP 서버이므로 MCP 클라이언트 설정에서 실행 명령을 `pyt
 
 - [x] 세 도구가 discoverable/callable이다.
 - [x] 도구 입력 schema와 실패 입력을 테스트한다.
+- [x] stdio MCP Client가 별도 Server 프로세스를 기동해 tool discovery와 호출을 확인한다.
 
 ## Interview Questions
 

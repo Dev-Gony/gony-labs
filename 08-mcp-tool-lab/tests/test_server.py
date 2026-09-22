@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 from mcp.server.mcpserver.exceptions import ToolError
+from mcp import ClientSession
+from mcp.client.stdio import StdioServerParameters, stdio_client
 
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT))
@@ -27,3 +29,18 @@ def test_tools_are_callable():
 def test_invalid_tool_input_returns_error_result():
     with pytest.raises(ToolError, match="Unknown question_id"):
         asyncio.run(server.call_tool("get_question", {"question_id": "missing"}))
+
+
+def test_stdio_client_discovers_and_calls_real_server_process():
+    async def run_client():
+        parameters = StdioServerParameters(command=sys.executable, args=["server.py"], cwd=str(ROOT))
+        async with stdio_client(parameters) as (read_stream, write_stream):
+            async with ClientSession(read_stream, write_stream) as session:
+                await session.initialize()
+                tools = await session.list_tools()
+                result = await session.call_tool("get_today_question", {})
+                return {tool.name for tool in tools.tools}, result.structured_content
+
+    tools, result = asyncio.run(run_client())
+    assert {"get_today_question", "get_question", "save_answer"} <= tools
+    assert result["id"] == "http-idempotency"
