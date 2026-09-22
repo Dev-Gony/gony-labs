@@ -26,7 +26,7 @@ python -m pip install -r requirements-dev.txt
 ./scripts/check.ps1
 ```
 
-예상 결과: `33 passed`.
+예상 결과: `34 passed`.
 
 `main`에 push하거나 pull request를 열면 [Test Toy Labs](.github/workflows/ci.yml) workflow가 같은 전체 Eval을 실행합니다.
 

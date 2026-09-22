@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
-from src.gym import InterviewPack, Question, _response_output_text, build_slack_payload, choose_question, fallback_pack
+from src.gym import InterviewPack, Question, _response_output_text, build_slack_payload, choose_question, fallback_pack, generate_pack
 
 
 def test_chooses_question_not_in_history():
@@ -37,3 +37,36 @@ def test_slack_payload_contains_question_and_answers():
 def test_reads_text_from_responses_api_message_shape():
     response = {"output": [{"type": "message", "content": [{"type": "output_text", "text": "{\"answer\": \"ok\"}"}]}]}
     assert _response_output_text(response) == '{"answer": "ok"}'
+
+
+def test_generate_pack_uses_structured_response(monkeypatch):
+    response_body = {
+        "output": [{"type": "message", "content": [{"type": "output_text", "text": '{"standard_answer":"정석","interview_answer":"30초","follow_ups":["질문 1","질문 2"]}'}]}]
+    }
+    captured = {}
+
+    class FakeResponse:
+        status = 200
+
+        def read(self):
+            import json
+            return json.dumps(response_body).encode("utf-8")
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+    def fake_urlopen(request, timeout):
+        captured["request"] = request
+        captured["timeout"] = timeout
+        return FakeResponse()
+
+    monkeypatch.setattr("src.gym.urllib.request.urlopen", fake_urlopen)
+    pack = generate_pack(Question("one", "HTTP", "One?"), "test-key", "test-model")
+
+    assert pack.standard_answer == "정석"
+    assert pack.follow_ups == ["질문 1", "질문 2"]
+    assert captured["request"].get_header("Authorization") == "Bearer test-key"
+    assert b'"json_schema"' in captured["request"].data
