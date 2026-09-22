@@ -21,6 +21,7 @@ Chunking, Embedding, Cosine Similarity, Retrieval Hit@3, PostgreSQL, pgvector
 ## Run
 
 ```powershell
+Set-Location 07-mini-rag
 docker compose up -d db
 python seed_pgvector.py
 python run.py '트랜잭션 롤백은 왜 필요한가?'

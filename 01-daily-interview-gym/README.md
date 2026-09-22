@@ -25,12 +25,14 @@ Python, GitHub Actions, Slack Incoming Webhook, LLM API, JSON, 환경변수
 ## Run
 
 ```powershell
+Set-Location 01-daily-interview-gym
 python run.py --dry-run
 ```
 
 실제 전송에는 `SLACK_WEBHOOK_URL`이 필요합니다. `OPENAI_API_KEY`를 설정하면 Responses API의 Structured Outputs로 정석 답변·30초 답변·꼬리질문 2개를 생성합니다. 키가 없을 때에는 검증 가능한 내장 학습 답변을 사용합니다. 필요하면 `OPENAI_MODEL`로 모델을 지정할 수 있습니다.
 
 ```powershell
+Set-Location 01-daily-interview-gym
 $env:SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/...'
 $env:OPENAI_API_KEY = '...'
 $env:OPENAI_MODEL = 'gpt-5.6-luna' # 선택

@@ -25,9 +25,10 @@ PostgreSQL, SQLAlchemy, Alembic, SQL
 PostgreSQL URL을 설정한 뒤 migration을 실행합니다.
 
 ```powershell
+Set-Location 03-postgresql-lab
 $env:DATABASE_URL = 'postgresql+psycopg://postgres:postgres@localhost:5432/toy_labs'
 python -m alembic -c alembic.ini upgrade head
-python -m uvicorn src.main:app --app-dir 03-postgresql-lab
+python -m uvicorn src.main:app
 ```
 
 `DATABASE_URL`이 없을 때 앱은 로컬 `toy_labs.db`를 사용합니다. 이는 테스트용이며 완료 조건의 PostgreSQL 실행은 Docker Lab에서 검증합니다.

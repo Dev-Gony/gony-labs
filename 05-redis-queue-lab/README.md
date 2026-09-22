@@ -17,6 +17,7 @@ Redis, RQ, Worker, Async Job
 ## Run
 
 ```powershell
+Set-Location 05-redis-queue-lab
 docker compose up --build
 ```
 

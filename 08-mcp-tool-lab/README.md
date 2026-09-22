@@ -19,10 +19,11 @@ MCP, MCP Server, stdio transport, Tool Schema, Tool Calling
 ## Run
 
 ```powershell
+Set-Location 08-mcp-tool-lab
 python server.py
 ```
 
-stdio MCP 서버이므로 MCP 클라이언트 설정에서 실행 명령을 `python`, 인수를 `server.py`로 등록한다.
+stdio MCP 서버이므로 MCP 클라이언트 설정에서 실행 명령을 `python`, 인수를 `server.py`, 작업 폴더를 `08-mcp-tool-lab`로 등록한다.
 
 ## Done
 

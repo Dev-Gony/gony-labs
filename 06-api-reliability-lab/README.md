@@ -31,6 +31,7 @@ Timeout, Retry, Exponential Backoff, Structured Logging, Idempotency
 ## Run
 
 ```powershell
+Set-Location 06-api-reliability-lab
 python -m pytest tests -q
 ```
 

@@ -23,7 +23,8 @@ FastAPI, Pydantic, REST API, Swagger, pytest
 ## Run
 
 ```powershell
-python -m uvicorn src.main:app --app-dir 02-fastapi-lab --reload
+Set-Location 02-fastapi-lab
+python -m uvicorn src.main:app --reload
 ```
 
 OpenAPI 문서: `http://127.0.0.1:8000/docs`

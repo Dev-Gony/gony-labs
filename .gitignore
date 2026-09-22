@@ -3,3 +3,4 @@ __pycache__/
 .venv/
 .env
 *.pyc
+03-postgresql-lab/toy_labs.db

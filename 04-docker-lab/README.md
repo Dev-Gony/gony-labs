@@ -23,6 +23,7 @@ Kubernetes, 복잡한 CI/CD, 멀티클라우드
 ## Run
 
 ```powershell
+Set-Location 04-docker-lab
 Copy-Item .env.example .env
 docker compose up --build
 ```
