@@ -30,6 +30,15 @@ jobs:
           cd 03-postgresql-lab
           DATABASE_URL='postgresql+psycopg://toy_user:toy_password@localhost:5433/toy_labs' python -m alembic -c alembic.ini upgrade head
           test "$(docker exec postgresql-lab-test psql -U toy_user -d toy_labs -Atc "SELECT count(*) FROM information_schema.tables WHERE table_name IN ('questions', 'answers')")" = "2"
+          DATABASE_URL='postgresql+psycopg://toy_user:toy_password@localhost:5433/toy_labs' python -m uvicorn src.main:app --host 127.0.0.1 --port 8001 &
+          api_pid=$!
+          trap 'kill $api_pid || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8001/health; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:8001/questions | grep '멱등성'
+          curl --fail --silent --request POST http://127.0.0.1:8001/answers --header 'Content-Type: application/json' --data '{"question_id":1,"content":"integration answer"}' | grep 'integration answer'
       - name: Stop PostgreSQL Lab service
         if: always()
         run: docker rm --force postgresql-lab-test || true
